@@ -1,0 +1,2409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Ferramentas Open Source de Cibersegurança 2026</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#03050a; --bg2:#07101b; --panel:#0a1624; --panel2:#0d1d31; --panel3:#112741;
+      --border:#1b3956; --border2:#0d4f8c; --cyan:#00d4ff; --green:#00ff9d; --violet:#9d7dff;
+      --orange:#ff8a3d; --text:#d7e7f7; --muted:#87a0bc; --muted2:#5e7896;
+      --glow:0 0 28px rgba(0,212,255,.18); --glow2:0 0 24px rgba(0,255,157,.12);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; color:var(--text); font-family:'Rajdhani',sans-serif;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(0,212,255,.15), transparent 26%),
+        radial-gradient(circle at 100% 15%, rgba(157,125,255,.14), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(0,255,157,.08), transparent 26%),
+        linear-gradient(180deg, #03050a 0%, #06101a 48%, #081321 100%);
+      min-height:100vh;
+    }
+    .font-display { font-family:'Orbitron',sans-serif; }
+    .font-mono-ui { font-family:'Share Tech Mono',monospace; }
+    .grid-overlay::before {
+      content:""; position:fixed; inset:0; pointer-events:none; opacity:.08;
+      background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle at center, black 35%, transparent 95%);
+    }
+    .panel {
+      background:linear-gradient(180deg, rgba(12,24,39,.92), rgba(8,19,33,.92));
+      border:1px solid rgba(49,98,140,.65);
+      box-shadow: var(--glow);
+      backdrop-filter: blur(10px);
+    }
+    .soft-panel {
+      background: linear-gradient(180deg, rgba(12,22,36,.88), rgba(9,18,30,.82));
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow: 0 18px 45px rgba(0,0,0,.28);
+    }
+    .hero-line {height:1px;background:linear-gradient(90deg, transparent, rgba(0,212,255,.9), transparent);}
+    .title-glow { text-shadow:0 0 18px rgba(0,212,255,.25); }
+    .chip { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); }
+    .tool-card { transition:transform .22s ease, border-color .22s ease, box-shadow .22s ease; }
+    .tool-card:hover { transform:translateY(-4px); border-color:rgba(0,212,255,.55); box-shadow:0 0 0 1px rgba(0,212,255,.18), 0 18px 36px rgba(0,0,0,.28), var(--glow); }
+    .scanline::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(180deg, transparent, rgba(255,255,255,.018), transparent); background-size:100% 4px; mix-blend-mode:screen; opacity:.25; }
+    .sticky-topbar { backdrop-filter: blur(12px); background:rgba(3,7,14,.72); border-bottom:1px solid rgba(255,255,255,.08); }
+    .section-anchor { scroll-margin-top: 110px; }
+    .metric-value { font-family:'Orbitron',sans-serif; letter-spacing:.04em; }
+    .cat-link:hover { color:var(--cyan); }
+    .legend-dot { width:10px; height:10px; border-radius:9999px; display:inline-block; }
+    @media (max-width: 768px) { .title-responsive { font-size:2.3rem!important; } }
+  
+    @media (max-width: 640px) {
+      .title-responsive { font-size: 2rem !important; line-height: 1.05 !important; word-break: break-word; }
+      .tool-card h4 { word-break: break-word; }
+      .chip { max-width: 100%; white-space: normal; }
+    }
+
+  </style>
+
+</head>
+<body class="grid-overlay">
+  <div class="sticky top-0 z-50 sticky-topbar">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col lg:flex-row gap-3 lg:items-center lg:justify-between">
+      <div>
+        <div class="font-display text-sm tracking-[0.28em] text-cyan-300">MARIANA BS · CHEAT SHEET 2026</div>
+        <div class="text-xs text-slate-400">Ecossistema de Cibersegurança Open Source 2026</div>
+      </div>
+      <div class="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.18em] font-semibold">
+        <a href="#arquitetura" class="px-3 py-2 rounded-xl panel cat-link">Arquitetura</a>
+        <a href="#ferramentas" class="px-3 py-2 rounded-xl panel cat-link">Ferramentas</a>
+</div>
+    </div>
+  </div>
+
+  <header class="relative overflow-hidden scanline">
+    <div class="max-w-7xl mx-auto px-4 pt-12 pb-8 lg:pt-16 lg:pb-12">
+      <div class="panel rounded-[30px] p-6 md:p-8 lg:p-10">
+        <div class="grid lg:grid-cols-[1.3fr_.7fr] gap-8 items-start">
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full border border-cyan-400/25 bg-cyan-400/8 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.24em] text-cyan-300 mb-5">
+              catálogo completo • links oficiais • curadoria viva
+            </div>
+            <h1 class="font-display title-responsive text-4xl md:text-6xl xl:text-7xl leading-[1.02] title-glow mb-5">
+              ECOSSISTEMA DE<br><span class="text-cyan-300">CIBERSEGURANÇA</span><br><span class="text-violet-300">OPEN SOURCE 2026</span>
+            </h1>
+            <div class="hero-line mb-5"></div>
+            <p class="text-lg md:text-xl text-slate-300 max-w-4xl leading-relaxed">Catálogo amplo das principais ferramentas open source de cibersegurança em 2026, cobrindo rede, SOC, CTI, DFIR, AppSec, cloud, GRC, privacidade, automação e muito mais.</p>
+            
+          </div>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
+            <div class="soft-panel rounded-3xl p-5">
+              <div class="text-xs uppercase tracking-[0.24em] text-slate-500 mb-2">Total curado</div>
+              <div class="metric-value text-4xl text-cyan-300">180</div>
+              <div class="text-sm text-slate-400">ferramentas em 12 macrodomínios</div>
+            </div>
+            <div class="soft-panel rounded-3xl p-5">
+              <div class="text-xs uppercase tracking-[0.24em] text-slate-500 mb-2">GEVUL</div>
+              <div class="metric-value text-4xl text-emerald-300">49</div>
+              <div class="text-sm text-slate-400">itens para discovery, cloud, SCA, SBOM, IaC, K8s e workflow</div>
+            </div>
+            <div class="soft-panel rounded-3xl p-5">
+              <div class="text-xs uppercase tracking-[0.24em] text-slate-500 mb-2">CTI / SOC</div>
+              <div class="metric-value text-4xl text-violet-300">13</div>
+              <div class="text-sm text-slate-400">itens com CTI, casos, automação e inteligência operacional</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 pb-16">
+    <section id="arquitetura" class="section-anchor mb-14">
+      <div class="flex items-end justify-between gap-4 mb-6">
+        <div>
+          <div class="font-display text-cyan-300 text-sm tracking-[0.28em] mb-2">ARQUITETURA DE REFERÊNCIA</div>
+          <h2 class="text-3xl md:text-4xl font-bold">Ecossistema open source em camadas</h2>
+        </div>
+        <div class="text-sm text-slate-400 max-w-xl">Uma visão prática para montar borda, detecção, identidade, operações, GEVUL, cloud-native, DFIR e observabilidade sem depender de stack fechado.</div>
+      </div>
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div class="soft-panel rounded-3xl p-5"><div class="font-display text-cyan-300 text-xs tracking-[0.24em] mb-3">LEGENDA</div><div class="space-y-2 text-sm text-slate-300"><div><span class="legend-dot bg-cyan-400"></span> Preventivo</div><div><span class="legend-dot bg-emerald-400"></span> Detecção e postura</div><div><span class="legend-dot bg-violet-400"></span> Operação e inteligência</div></div></div>
+<div class="panel rounded-3xl p-5"><div class="font-display text-cyan-300 text-xs tracking-[0.24em] mb-3">Camada 1 · Borda, acesso e rede</div><div class="flex flex-wrap gap-2"><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">OPNsense / pfSense CE / IPFire / VyOS</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">WireGuard / OpenVPN / strongSwan</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">HAProxy / Nginx OSS</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Pi-hole / Unbound / Kea</span></div></div><div class="panel rounded-3xl p-5"><div class="font-display text-emerald-300 text-xs tracking-[0.24em] mb-3">Camada 2 · Visibilidade de rede</div><div class="flex flex-wrap gap-2"><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Suricata</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Snort 3</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Zeek</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Arkime</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Security Onion / Malcolm / SELKS</span></div></div><div class="panel rounded-3xl p-5"><div class="font-display text-violet-300 text-xs tracking-[0.24em] mb-3">Camada 3 · Endpoint, cloud e runtime</div><div class="flex flex-wrap gap-2"><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Wazuh agent</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">osquery</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Falco</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">auditd / AIDE</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Prowler / ScoutSuite / Kubescape</span></div></div><div class="panel rounded-3xl p-5"><div class="font-display text-cyan-300 text-xs tracking-[0.24em] mb-3">Camada 4 · SIEM, CTI, casos e automação</div><div class="flex flex-wrap gap-2"><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Wazuh</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">OpenSearch + Security Analytics</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">TheHive + Cortex</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">MISP + OpenCTI</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Shuffle / StackStorm / Sigma / YARA</span></div></div><div class="panel rounded-3xl p-5"><div class="font-display text-emerald-300 text-xs tracking-[0.24em] mb-3">Camada 5 · AppSec, vulnerabilidades e cadeia de software</div><div class="flex flex-wrap gap-2"><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Greenbone/OpenVAS</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Nuclei / ZAP / Nikto</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Trivy / Grype / Syft / Dependency-Track</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Semgrep / Gitleaks / TruffleHog</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">OpenSCAP / Lynis / testssl.sh</span></div></div><div class="panel rounded-3xl p-5"><div class="font-display text-violet-300 text-xs tracking-[0.24em] mb-3">Camada 6 · DFIR, malware e deception</div><div class="flex flex-wrap gap-2"><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Velociraptor</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">Volatility 3 / Plaso / Timesketch / Autopsy</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">CAPA / FLOSS / CAPEv2 / CyberChef</span><span class="chip rounded-full px-3 py-1 text-sm text-slate-300">T-Pot / Cowrie / Dionaea / OpenCanary / Conpot</span></div></div>
+      </div>
+    </section>
+
+    <section id="gevul" class="section-anchor mb-14">
+      <div class="panel rounded-[28px] p-6 md:p-8">
+        <div class="grid lg:grid-cols-[1fr_.9fr] gap-8">
+          <div>
+            <div class="font-display text-emerald-300 text-sm tracking-[0.28em] mb-2"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ferramentas" class="section-anchor">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-7">
+        <div>
+          <div class="font-display text-cyan-300 text-sm tracking-[0.28em] mb-2">CATÁLOGO</div>
+          <h2 class="text-3xl md:text-4xl font-bold">Ferramentas por domínio</h2>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-3 w-full lg:w-auto">
+          <input id="searchInput" type="text" placeholder="Buscar ferramenta, tag ou descrição" class="w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-slate-200 outline-none focus:border-cyan-400/60">
+          <select id="categoryFilter" class="w-full rounded-2xl border border-white/10 bg-slate-950/60 px-4 py-3 text-slate-200 outline-none focus:border-cyan-400/60">
+            <option value="all">Todas as categorias</option>
+          </select>
+        </div>
+      </div>
+      <div class="panel rounded-[28px] p-5 md:p-6 mb-7">
+        <div id="quickNav" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div id="toolsContainer" class="space-y-12"></div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-4 pb-12 pt-4">
+    <div class="hero-line mb-5"></div>
+    <div class="flex flex-col md:flex-row justify-between gap-4 text-sm">
+      <div>
+        <div class="font-display text-cyan-300 tracking-[0.2em]">BE SAFE · MARIANA BS</div>
+        <div class="text-slate-500">Cheat sheet curado em português com foco prático e arquitetura open source.</div>
+      </div>
+      <div class="text-slate-500 max-w-2xl">Observação: “todas as ferramentas” no universo open source nunca é uma lista finita perfeita. Esta versão foi ampliada para cobrir, de forma muito mais completa, os componentes centrais e ativos usados em operações modernas de cibersegurança em 2026.</div>
+    </div>
+  </footer>
+
+  <script>
+    const data = {
+  "hero": {
+    "title": "Ecossistema de Cibersegurança Open Source 2026",
+    "subtitle": "Um mapa gigante, em português, das principais soluções open source úteis em 2026 para montar um ecossistema completo de cibersegurança.",
+    "badges": [
+      "CTI, SIEM, DFIR, AppSec, Cloud, Honeypots e GRC",
+      "Curadoria open source ponta a ponta",
+      "Links oficiais por ferramenta",
+      "Arquitetura de referência inclusa",
+      "Busca instantânea",
+      "CTI/OSINT reforçado",
+      "DLP incluso",
+      "Privacidade & colaboração segura",
+      "IA local / self-hosted",
+      "Itens adjacentes sinalizados"
+    ]
+  },
+  "stats": [
+    {
+      "label": "Ferramentas listadas",
+      "value": "174"
+    },
+    {
+      "label": "Categorias",
+      "value": "11"
+    },
+    {
+      "label": "Uso ideal",
+      "value": "SOC · AppSec · Privacidade"
+    },
+    {
+      "label": "Cobertura",
+      "value": "Perímetro → IR"
+    }
+  ],
+  "architecture": {
+    "title": "Arquitetura de referência: ecossistema 100% open source",
+    "lead": "A ideia aqui não é usar “uma ferramenta mágica”, e sim montar um ecossistema em camadas. Em ciber open source, maturidade vem de composição: borda protegida, telemetria rica, correlação, DFIR, CTI e resposta.",
+    "layers": [
+      {
+        "title": "Camada 1 · Borda, acesso e rede",
+        "chips": [
+          "OPNsense / pfSense CE / IPFire / VyOS",
+          "WireGuard / OpenVPN / strongSwan",
+          "HAProxy / Nginx OSS",
+          "Pi-hole / Unbound / Kea"
+        ]
+      },
+      {
+        "title": "Camada 2 · Visibilidade de rede",
+        "chips": [
+          "Suricata",
+          "Snort 3",
+          "Zeek",
+          "Arkime",
+          "Security Onion / Malcolm / SELKS"
+        ]
+      },
+      {
+        "title": "Camada 3 · Endpoint, cloud e runtime",
+        "chips": [
+          "Wazuh agent",
+          "osquery",
+          "Falco",
+          "auditd / AIDE",
+          "Prowler / ScoutSuite / Kubescape"
+        ]
+      },
+      {
+        "title": "Camada 4 · SIEM, CTI, casos e automação",
+        "chips": [
+          "Wazuh",
+          "OpenSearch + Security Analytics",
+          "TheHive + Cortex",
+          "MISP + OpenCTI",
+          "Shuffle / StackStorm / Sigma / YARA"
+        ]
+      },
+      {
+        "title": "Camada 5 · AppSec, vulnerabilidades e cadeia de software",
+        "chips": [
+          "Greenbone/OpenVAS",
+          "Nuclei / ZAP / Nikto",
+          "Trivy / Grype / Syft / Dependency-Track",
+          "Semgrep / Gitleaks / TruffleHog",
+          "OpenSCAP / Lynis / testssl.sh"
+        ]
+      },
+      {
+        "title": "Camada 6 · DFIR, malware e deception",
+        "chips": [
+          "Velociraptor",
+          "Volatility 3 / Plaso / Timesketch / Autopsy",
+          "CAPA / FLOSS / CAPEv2 / CyberChef",
+          "T-Pot / Cowrie / Dionaea / OpenCanary / Conpot"
+        ]
+      }
+    ]
+  },
+  "categories": [
+    {
+      "name": "Perímetro & Rede",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "Routing stack",
+          "name": "FRRouting",
+          "description": "Suíte de roteamento para BGP/OSPF/IS-IS/RIP útil em laboratórios e edge security.",
+          "tags": [
+            "bgp",
+            "ospf",
+            "routing"
+          ],
+          "link": "https://frrouting.org/"
+        },
+        {
+          "kind": "Proxy/Load Balancer",
+          "name": "HAProxy",
+          "description": "Balanceador e proxy reverso muito usado em borda, WAF chaining e alta disponibilidade.",
+          "tags": [
+            "reverse",
+            "proxy",
+            "load",
+            "balancer",
+            "ha"
+          ],
+          "link": "https://www.haproxy.org/"
+        },
+        {
+          "kind": "Firewall",
+          "name": "IPFire",
+          "description": "Firewall Linux com foco em segmentação de zonas, VPN, proxy e proteção perimetral.",
+          "tags": [
+            "firewall",
+            "perimeter",
+            "zones",
+            "vpn"
+          ],
+          "link": "https://www.ipfire.org/"
+        },
+        {
+          "kind": "Firewall engine",
+          "name": "nftables",
+          "description": "Framework moderno de filtering/NAT no Linux, base para políticas de host e gateway.",
+          "tags": [
+            "linux",
+            "firewall",
+            "nat"
+          ],
+          "link": "https://netfilter.org/projects/nftables/index.html"
+        },
+        {
+          "kind": "Reverse Proxy",
+          "name": "Nginx OSS",
+          "description": "Proxy reverso e servidor web usado para TLS termination, hardening e front door.",
+          "tags": [
+            "reverse",
+            "proxy",
+            "tls",
+            "web"
+          ],
+          "link": "https://nginx.org/"
+        },
+        {
+          "kind": "VPN",
+          "name": "OpenVPN",
+          "description": "VPN TLS/SSL madura para acesso remoto, site-to-site e integração multissistema.",
+          "tags": [
+            "vpn",
+            "tls",
+            "ssl"
+          ],
+          "link": "https://openvpn.net/community/"
+        },
+        {
+          "kind": "Router OS",
+          "name": "OpenWrt",
+          "description": "Sistema para roteadores e appliances com firewall, pacotes extras e forte flexibilidade.",
+          "tags": [
+            "router",
+            "os",
+            "edge",
+            "wifi",
+            "firewall"
+          ],
+          "link": "https://openwrt.org/"
+        },
+        {
+          "kind": "Firewall/NGFW",
+          "name": "OPNsense",
+          "description": "Firewall e roteador open source baseado em FreeBSD, com plugins, VPN e integração com Suricata.",
+          "tags": [
+            "firewall",
+            "ngfw",
+            "vpn",
+            "router",
+            "ids",
+            "ips"
+          ],
+          "link": "https://opnsense.org/"
+        },
+        {
+          "kind": "Firewall/Router",
+          "name": "pfSense CE",
+          "description": "Firewall e roteador open source voltado a borda, VPN, NAT, HA e múltiplos links.",
+          "tags": [
+            "firewall",
+            "router",
+            "vpn",
+            "nat",
+            "ha"
+          ],
+          "link": "https://www.pfsense.org/"
+        },
+        {
+          "kind": "IPsec VPN",
+          "name": "strongSwan",
+          "description": "Implementação IPsec/IKEv2 amplamente usada para VPN corporativa.",
+          "tags": [
+            "vpn",
+            "ipsec",
+            "ikev2"
+          ],
+          "link": "https://www.strongswan.org/"
+        },
+        {
+          "kind": "Router/Firewall",
+          "name": "VyOS",
+          "description": "Sistema de roteamento e segurança com CLI estilo network OS, útil para borda, cloud e lab.",
+          "tags": [
+            "router",
+            "firewall",
+            "bgp",
+            "ospf",
+            "vpn"
+          ],
+          "link": "https://vyos.io/"
+        },
+        {
+          "kind": "VPN",
+          "name": "WireGuard",
+          "description": "VPN moderna, simples e muito eficiente para túneis site-to-site e acesso remoto.",
+          "tags": [
+            "vpn",
+            "remote",
+            "access"
+          ],
+          "link": "https://www.wireguard.com/"
+        }
+      ]
+    },
+    {
+      "name": "NDR, IDS, IPS & NSM",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "Full Packet Capture",
+          "name": "Arkime",
+          "description": "Plataforma de full packet capture e busca de sessões em larga escala.",
+          "tags": [
+            "pcap",
+            "packet",
+            "capture",
+            "investigation"
+          ],
+          "link": "https://arkime.com/"
+        },
+        {
+          "kind": "Network Forensics",
+          "name": "Malcolm",
+          "description": "Stack para captura, extração e análise de tráfego e artefatos de rede.",
+          "tags": [
+            "network",
+            "forensics",
+            "pcap",
+            "zeek",
+            "suricata"
+          ],
+          "link": "https://malcolm.fyi/"
+        },
+        {
+          "kind": "Flow Collector",
+          "name": "nProbe",
+          "description": "Coletor/exportador de NetFlow/IPFIX para observabilidade de rede.",
+          "tags": [
+            "netflow",
+            "ipfix",
+            "flows"
+          ],
+          "link": "https://www.ntop.org/products/netflow/nprobe/"
+        },
+        {
+          "kind": "Network Visibility",
+          "name": "ntopng",
+          "description": "Visibilidade e análise de tráfego com foco em fluxos e uso de rede.",
+          "tags": [
+            "network",
+            "visibility",
+            "flows"
+          ],
+          "link": "https://www.ntop.org/products/traffic-analysis/ntop/"
+        },
+        {
+          "kind": "NSM/SOC distro",
+          "name": "Security Onion",
+          "description": "Distribuição para SOC com IDS, PCAP, logs, cases e hunting integrados.",
+          "tags": [
+            "soc",
+            "nsm",
+            "distro"
+          ],
+          "link": "https://securityonionsolutions.com/software"
+        },
+        {
+          "kind": "NSM distro",
+          "name": "SELKS",
+          "description": "Distribuição voltada a Suricata, EveBox e hunting de rede.",
+          "tags": [
+            "suricata",
+            "nsm",
+            "distro"
+          ],
+          "link": "https://www.stamus-networks.com/selks"
+        },
+        {
+          "kind": "IDS/IPS",
+          "name": "Snort 3",
+          "description": "IDS/IPS baseado em regras com ecossistema maduro e grande legado no mercado.",
+          "tags": [
+            "ids",
+            "ips",
+            "rules"
+          ],
+          "link": "https://www.snort.org/"
+        },
+        {
+          "kind": "IDS/IPS/NSM",
+          "name": "Suricata",
+          "description": "Motor de detecção e inspeção L7 para IDS, IPS e network security monitoring.",
+          "tags": [
+            "ids",
+            "ips",
+            "nsm",
+            "eve",
+            "rules"
+          ],
+          "link": "https://suricata.io/"
+        },
+        {
+          "kind": "Network Analysis",
+          "name": "Zeek",
+          "description": "Analisador de tráfego orientado a protocolos para telemetria, hunting e investigação.",
+          "tags": [
+            "network",
+            "telemetry",
+            "logs",
+            "nsm"
+          ],
+          "link": "https://zeek.org/"
+        }
+      ]
+    },
+    {
+      "name": "Web, API, E-mail & DNS",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "DNS Security",
+          "name": "AdGuard Home",
+          "description": "Servidor DNS com bloqueio de anúncios e domínios indesejados.",
+          "tags": [
+            "dns",
+            "filtering"
+          ],
+          "link": "https://adguard.com/en/adguard-home/overview.html"
+        },
+        {
+          "kind": "API Gateway",
+          "name": "Apache APISIX",
+          "description": "API gateway com plugins para autenticação, rate limit e segurança.",
+          "tags": [
+            "api",
+            "gateway",
+            "auth",
+            "rate-limit"
+          ],
+          "link": "https://apisix.apache.org/"
+        },
+        {
+          "kind": "Mail Filtering",
+          "name": "Apache SpamAssassin",
+          "description": "Motor clássico de antispam baseado em regras e scoring.",
+          "tags": [
+            "email",
+            "antispam"
+          ],
+          "link": "https://spamassassin.apache.org/"
+        },
+        {
+          "kind": "Security Reverse Proxy",
+          "name": "BunkerWeb",
+          "description": "Reverse proxy focado em hardening, WAF e proteção de aplicações.",
+          "tags": [
+            "reverse",
+            "proxy",
+            "waf",
+            "web"
+          ],
+          "link": "https://www.bunkerweb.io/"
+        },
+        {
+          "kind": "WAF engine",
+          "name": "Coraza",
+          "description": "WAF moderno compatível com regras estilo ModSecurity/CRS.",
+          "tags": [
+            "waf",
+            "waf",
+            "engine",
+            "crs"
+          ],
+          "link": "https://coraza.io/"
+        },
+        {
+          "kind": "DHCP",
+          "name": "Kea DHCP",
+          "description": "Servidor DHCP moderno útil para controle e automação de rede.",
+          "tags": [
+            "dhcp",
+            "network",
+            "infra"
+          ],
+          "link": "https://www.isc.org/kea/"
+        },
+        {
+          "kind": "API Gateway",
+          "name": "Kong Gateway OSS",
+          "description": "API gateway open source para auth, rate limiting e exposure control.",
+          "tags": [
+            "api",
+            "gateway",
+            "auth"
+          ],
+          "link": "https://konghq.com/products/kong-gateway"
+        },
+        {
+          "kind": "API Gateway",
+          "name": "KrakenD Community",
+          "description": "Gateway para composição de APIs com políticas e mediação.",
+          "tags": [
+            "api",
+            "gateway"
+          ],
+          "link": "https://www.krakend.io/"
+        },
+        {
+          "kind": "Secure Mail Stack",
+          "name": "Mailcow",
+          "description": "Stack de e-mail self-hosted com proteção, administração e automação.",
+          "tags": [
+            "email",
+            "suite"
+          ],
+          "link": "https://mailcow.email/"
+        },
+        {
+          "kind": "Mail Server",
+          "name": "Mailu",
+          "description": "Plataforma self-hosted de e-mail com foco em simplicidade e segurança.",
+          "tags": [
+            "email",
+            "suite"
+          ],
+          "link": "https://mailu.io/"
+        },
+        {
+          "kind": "WAF engine",
+          "name": "ModSecurity",
+          "description": "WAF open source clássico para proteção HTTP/HTTPS e regras OWASP CRS.",
+          "tags": [
+            "waf",
+            "http",
+            "owasp"
+          ],
+          "link": "https://modsecurity.org/"
+        },
+        {
+          "kind": "Access Proxy",
+          "name": "OAuth2-Proxy",
+          "description": "Proxy para SSO/OIDC diante de aplicações web internas.",
+          "tags": [
+            "sso",
+            "oidc",
+            "proxy"
+          ],
+          "link": "https://oauth2-proxy.github.io/oauth2-proxy/"
+        },
+        {
+          "kind": "Mail Auth",
+          "name": "OpenDKIM",
+          "description": "Assinatura DKIM para endurecimento de e-mail.",
+          "tags": [
+            "email",
+            "dkim"
+          ],
+          "link": "https://www.opendkim.org/"
+        },
+        {
+          "kind": "Mail Auth",
+          "name": "OpenDMARC",
+          "description": "Validação e aplicação de políticas DMARC.",
+          "tags": [
+            "email",
+            "dmarc"
+          ],
+          "link": "https://github.com/trusteddomainproject/OpenDMARC"
+        },
+        {
+          "kind": "WAF Rules",
+          "name": "OWASP CRS",
+          "description": "Core Rule Set do OWASP para WAFs compatíveis com CRS.",
+          "tags": [
+            "waf",
+            "rules",
+            "crs",
+            "owasp"
+          ],
+          "link": "https://coreruleset.org/"
+        },
+        {
+          "kind": "DNS Filtering",
+          "name": "Pi-hole",
+          "description": "DNS sinkhole para bloqueio de domínios maliciosos e ad tracking.",
+          "tags": [
+            "dns",
+            "sinkhole"
+          ],
+          "link": "https://pi-hole.net/"
+        },
+        {
+          "kind": "Mail Filtering",
+          "name": "Rspamd",
+          "description": "Filtro de e-mail moderno com reputação, spam scoring e autenticação.",
+          "tags": [
+            "email",
+            "antispam"
+          ],
+          "link": "https://rspamd.com/"
+        },
+        {
+          "kind": "Recursive DNS",
+          "name": "Unbound",
+          "description": "Resolvedor DNS recursivo com DNSSEC e política local.",
+          "tags": [
+            "dns",
+            "dnssec"
+          ],
+          "link": "https://nlnetlabs.nl/projects/unbound/about/"
+        }
+      ]
+    },
+    {
+      "name": "IAM, SSO, MFA & Segredos",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "SSO/MFA",
+          "name": "Authelia",
+          "description": "Camada de autenticação e MFA para aplicações web internas.",
+          "tags": [
+            "sso",
+            "mfa",
+            "proxy"
+          ],
+          "link": "https://www.authelia.com/"
+        },
+        {
+          "kind": "IAM/SSO",
+          "name": "Authentik",
+          "description": "Plataforma de autenticação e SSO moderna para ambientes self-hosted.",
+          "tags": [
+            "iam",
+            "sso",
+            "mfa"
+          ],
+          "link": "https://goauthentik.io/"
+        },
+        {
+          "kind": "IAM/Directory",
+          "name": "FreeIPA",
+          "description": "IAM para Linux com identidade, políticas, certificados e integração LDAP/Kerberos.",
+          "tags": [
+            "ldap",
+            "kerberos",
+            "pki"
+          ],
+          "link": "https://www.freeipa.org/"
+        },
+        {
+          "kind": "Directory/IAM",
+          "name": "Kanidm",
+          "description": "Diretório e IAM moderno com segurança por design.",
+          "tags": [
+            "iam",
+            "directory"
+          ],
+          "link": "https://kanidm.com/"
+        },
+        {
+          "kind": "IAM/SSO",
+          "name": "Keycloak",
+          "description": "Plataforma de IAM/SSO para OIDC, SAML, brokering e controle de acesso.",
+          "tags": [
+            "iam",
+            "sso",
+            "oidc",
+            "saml"
+          ],
+          "link": "https://www.keycloak.org/"
+        },
+        {
+          "kind": "Lightweight Directory",
+          "name": "LLDAP",
+          "description": "Diretório LDAP leve para labs e ambientes menores.",
+          "tags": [
+            "ldap"
+          ],
+          "link": "https://github.com/lldap/lldap"
+        },
+        {
+          "kind": "Secrets Management",
+          "name": "OpenBao",
+          "description": "Gerenciamento open source de segredos e credenciais dinâmicas.",
+          "tags": [
+            "secrets",
+            "vault"
+          ],
+          "link": "https://openbao.org/"
+        },
+        {
+          "kind": "Directory",
+          "name": "OpenLDAP",
+          "description": "Servidor LDAP open source para diretório e autenticação.",
+          "tags": [
+            "ldap",
+            "directory"
+          ],
+          "link": "https://www.openldap.org/"
+        },
+        {
+          "kind": "MFA",
+          "name": "privacyIDEA",
+          "description": "Servidor MFA/2FA para tokens, OTP e integração corporativa.",
+          "tags": [
+            "mfa",
+            "otp",
+            "2fa"
+          ],
+          "link": "https://www.privacyidea.org/"
+        },
+        {
+          "kind": "IAM/CIAM",
+          "name": "ZITADEL",
+          "description": "IAM moderno com foco em OAuth2/OIDC, identidade e automação.",
+          "tags": [
+            "iam",
+            "ciam",
+            "oidc"
+          ],
+          "link": "https://zitadel.com/"
+        }
+      ]
+    },
+    {
+      "name": "SIEM, SOAR, CTI & Casos",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "OSINT/CTI Collection",
+          "name": "AIL Project",
+          "description": "Framework open source para coletar, processar e analisar dados não estruturados da clear web, Tor e plataformas modernas de comunicação.",
+          "tags": [
+            "osint",
+            "cti",
+            "darkweb",
+            "collection",
+            "analysis"
+          ],
+          "link": "https://ail-project.org/"
+        },
+        {
+          "kind": "Analysis/Response",
+          "name": "Cortex",
+          "description": "Automação de análise e resposta integrada a casos.",
+          "tags": [
+            "analysis",
+            "response",
+            "ir"
+          ],
+          "link": "https://thehive-project.org/"
+        },
+        {
+          "kind": "Threat Intel Automation",
+          "name": "IntelMQ",
+          "description": "Solução para coletar, normalizar e processar feeds de segurança via filas de mensagens, muito usada por CERTs/CSIRTs e times de abuse.",
+          "tags": [
+            "cti",
+            "feeds",
+            "automation",
+            "cert",
+            "csirt"
+          ],
+          "link": "https://github.com/certtools/intelmq"
+        },
+        {
+          "kind": "Threat Intel Workbench",
+          "name": "IntelOwl",
+          "description": "Plataforma open source para consultar múltiplas fontes de threat intelligence e análise por uma API única, útil para enriquecimento e triagem.",
+          "tags": [
+            "cti",
+            "enrichment",
+            "analysis",
+            "ioc",
+            "api"
+          ],
+          "link": "https://github.com/intelowlproject/IntelOwl"
+        },
+        {
+          "kind": "Web Forensics / URL Analysis",
+          "name": "Lookyloo",
+          "description": "Interface para captura e análise de páginas web, exibindo a árvore de domínios e recursos relacionados, útil para phishing e web forensics.",
+          "tags": [
+            "web",
+            "forensics",
+            "phishing",
+            "cti",
+            "capture"
+          ],
+          "link": "https://lookyloo.circl.lu/"
+        },
+        {
+          "kind": "Threat Intelligence",
+          "name": "MISP",
+          "description": "Plataforma para compartilhamento e operacionalização de indicadores e eventos.",
+          "tags": [
+            "cti",
+            "ioc",
+            "sharing"
+          ],
+          "link": "https://www.misp-project.org/"
+        },
+        {
+          "kind": "Threat Intelligence Platform",
+          "name": "OpenCTI",
+          "description": "Plataforma open source para modelagem, correlação e disseminação de CTI.",
+          "tags": [
+            "cti",
+            "graph",
+            "threat",
+            "intel"
+          ],
+          "link": "https://filigran.io/opencti/"
+        },
+        {
+          "kind": "Search/SIEM base",
+          "name": "OpenSearch",
+          "description": "Motor de busca/analytics usado como base para observabilidade e SIEM open source.",
+          "tags": [
+            "search",
+            "analytics",
+            "siem"
+          ],
+          "link": "https://opensearch.org/"
+        },
+        {
+          "kind": "Dashboards",
+          "name": "OpenSearch Dashboards",
+          "description": "Camada visual para analytics, hunting e operações.",
+          "tags": [
+            "dashboards",
+            "analytics"
+          ],
+          "link": "https://opensearch.org/"
+        },
+        {
+          "kind": "Detection",
+          "name": "OpenSearch Security Analytics",
+          "description": "Camada de analytics e detecção para OpenSearch.",
+          "tags": [
+            "siem",
+            "detections",
+            "analytics"
+          ],
+          "link": "https://opensearch.org/docs/latest/security-analytics/index/"
+        },
+        {
+          "kind": "SOAR",
+          "name": "Shuffle",
+          "description": "SOAR open source para playbooks, integrações e automações de resposta.",
+          "tags": [
+            "soar",
+            "automation",
+            "playbooks"
+          ],
+          "link": "https://shuffle.dev/"
+        },
+        {
+          "kind": "Detection Rules",
+          "name": "Sigma",
+          "description": "Linguagem genérica de regras de detecção convertível para vários backends.",
+          "tags": [
+            "detections",
+            "sigma",
+            "rules"
+          ],
+          "link": "https://sigmahq.io/"
+        },
+        {
+          "kind": "Automation",
+          "name": "StackStorm",
+          "description": "Automação orientada a eventos e runbooks para SecOps e IT Ops.",
+          "tags": [
+            "automation",
+            "orchestration"
+          ],
+          "link": "https://stackstorm.com/"
+        },
+        {
+          "kind": "Case Management",
+          "name": "TheHive",
+          "description": "Plataforma de gestão de casos para SOC e incidentes.",
+          "tags": [
+            "case",
+            "management",
+            "ir",
+            "soc"
+          ],
+          "link": "https://thehive-project.org/"
+        },
+        {
+          "kind": "SIEM/XDR-lite/HIDS",
+          "name": "Wazuh",
+          "description": "Plataforma open source para HIDS, FIM, VM, correlação e dashboards.",
+          "tags": [
+            "siem",
+            "hids",
+            "fim",
+            "xdr"
+          ],
+          "link": "https://wazuh.com/"
+        },
+        {
+          "kind": "Malware/Content Rules",
+          "name": "YARA",
+          "description": "Linguagem de matching para malware, artefatos e hunting.",
+          "tags": [
+            "yara",
+            "malware",
+            "hunting"
+          ],
+          "link": "https://virustotal.github.io/yara/"
+        },
+        {
+          "kind": "CTI/DFIR Intelligence",
+          "name": "Yeti",
+          "description": "Plataforma de threat intelligence orientada a DFIR para correlacionar artefatos, entidades e histórico de observações em investigações.",
+          "tags": [
+            "cti",
+            "dfir",
+            "ioc",
+            "correlation"
+          ],
+          "link": "https://yeti-platform.io/"
+        }
+      ]
+    },
+    {
+      "name": "Endpoint, Host & Cloud-Native",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "File Integrity",
+          "name": "AIDE",
+          "description": "Ferramenta de file integrity monitoring para Linux/Unix.",
+          "tags": [
+            "fim",
+            "host"
+          ],
+          "link": "https://aide.github.io/"
+        },
+        {
+          "kind": "Linux Auditing",
+          "name": "auditd",
+          "description": "Auditoria nativa de eventos do Linux para trilhas e detecção.",
+          "tags": [
+            "linux",
+            "audit"
+          ],
+          "link": "https://github.com/linux-audit/audit-userspace"
+        },
+        {
+          "kind": "Behavioral Detection",
+          "name": "CrowdSec",
+          "description": "Detecção colaborativa e remediação baseada em comportamento, muito usada em edge e serviços expostos.",
+          "tags": [
+            "behavioral",
+            "detection",
+            "bouncer"
+          ],
+          "link": "https://www.crowdsec.net/"
+        },
+        {
+          "kind": "Runtime Security",
+          "name": "Falco",
+          "description": "Detecção de comportamento em runtime para Linux, containers e Kubernetes.",
+          "tags": [
+            "runtime",
+            "kubernetes",
+            "detection"
+          ],
+          "link": "https://falco.org/"
+        },
+        {
+          "kind": "Kubernetes CIS",
+          "name": "kube-bench",
+          "description": "Checagem de benchmark CIS para Kubernetes.",
+          "tags": [
+            "kubernetes",
+            "cis"
+          ],
+          "link": "https://github.com/aquasecurity/kube-bench"
+        },
+        {
+          "kind": "Kubernetes Hunting",
+          "name": "kube-hunter",
+          "description": "Busca por exposições e fraquezas em clusters Kubernetes.",
+          "tags": [
+            "kubernetes",
+            "attack",
+            "surface"
+          ],
+          "link": "https://github.com/aquasecurity/kube-hunter"
+        },
+        {
+          "kind": "Kubernetes Security",
+          "name": "Kubescape",
+          "description": "Segurança para Kubernetes com posture e scanning.",
+          "tags": [
+            "kubernetes",
+            "posture"
+          ],
+          "link": "https://kubescape.io/"
+        },
+        {
+          "kind": "Policy Engine",
+          "name": "Kyverno",
+          "description": "Políticas nativas para Kubernetes úteis em guardrails e hardening.",
+          "tags": [
+            "kubernetes",
+            "policy"
+          ],
+          "link": "https://kyverno.io/"
+        },
+        {
+          "kind": "Policy Engine",
+          "name": "Open Policy Agent",
+          "description": "Motor de política e autorização para pipelines, APIs e cloud-native.",
+          "tags": [
+            "policy",
+            "engine"
+          ],
+          "link": "https://www.openpolicyagent.org/"
+        },
+        {
+          "kind": "Endpoint Telemetry",
+          "name": "osquery",
+          "description": "Consulta de estado do endpoint com SQL para investigação e compliance.",
+          "tags": [
+            "endpoint",
+            "telemetry",
+            "sql"
+          ],
+          "link": "https://www.osquery.io/"
+        },
+        {
+          "kind": "DLP / Sensitive Data Discovery",
+          "name": "OpenDLP",
+          "description": "Projeto open source voltado a descoberta de dados sensíveis em repouso, com varredura centralizada para Windows, Unix e bancos de dados; útil como peça de um DLP open source composto.",
+          "tags": [
+            "dlp",
+            "sensitive-data",
+            "discovery",
+            "compliance"
+          ],
+          "link": "https://github.com/ezarko/opendlp"
+        },
+        {
+          "kind": "Cloud Security",
+          "name": "Prowler",
+          "description": "Auditoria de segurança para AWS, Azure, GCP e M365.",
+          "tags": [
+            "cloud",
+            "cspm",
+            "audit"
+          ],
+          "link": "https://prowler.com/"
+        },
+        {
+          "kind": "Cloud Security Auditing",
+          "name": "ScoutSuite",
+          "description": "Auditoria multi-cloud orientada a postura de segurança.",
+          "tags": [
+            "cloud",
+            "posture"
+          ],
+          "link": "https://github.com/nccgroup/ScoutSuite"
+        }
+      ]
+    },
+    {
+      "name": "Vulnerabilidades, ASM & AppSec",
+      "description": "Discovery, scanning, priorização, workflow, cloud, IaC, Kubernetes, SCA, SBOM, DAST e attack surface management para uma prática de GEVUL realmente completa em 2026.",
+      "tools": [
+        {
+          "kind": "Attack Surface Mapping",
+          "name": "Amass",
+          "description": "Enumeração de ativos externos e mapeamento de superfície de ataque.",
+          "tags": [
+            "asm",
+            "dns",
+            "recon"
+          ],
+          "link": "https://owasp.org/www-project-amass/"
+        },
+        {
+          "kind": "Python SAST",
+          "name": "Bandit",
+          "description": "Análise estática focada em código Python.",
+          "tags": [
+            "python",
+            "sast"
+          ],
+          "link": "https://bandit.readthedocs.io/"
+        },
+        {
+          "kind": "Rails SAST",
+          "name": "Brakeman",
+          "description": "Scanner estático para aplicações Ruby on Rails.",
+          "tags": [
+            "rails",
+            "sast"
+          ],
+          "link": "https://brakemanscanner.org/"
+        },
+        {
+          "kind": "SBOM",
+          "name": "cdxgen",
+          "description": "Gerador de SBOM compatível com CycloneDX para aplicações, containers e múltiplos ecossistemas de build.",
+          "tags": [
+            "sbom",
+            "cyclonedx",
+            "supply-chain"
+          ],
+          "link": "https://cyclonedx.github.io/cdxgen/"
+        },
+        {
+          "kind": "IaC & Supply Chain",
+          "name": "Checkov",
+          "description": "Scanner de IaC e SCA para Terraform, Kubernetes, Helm, CloudFormation, Dockerfiles e pacotes open source.",
+          "tags": [
+            "iac",
+            "sca",
+            "devsecops"
+          ],
+          "link": "https://www.checkov.io/"
+        },
+        {
+          "kind": "Container Registry Scanner",
+          "name": "Clair",
+          "description": "Projeto open source para análise estática de vulnerabilidades em imagens de containers e artefatos associados.",
+          "tags": [
+            "containers",
+            "registry",
+            "vulnerabilities"
+          ],
+          "link": "https://quay.github.io/clair/"
+        },
+        {
+          "kind": "Binary Vulnerability",
+          "name": "cve-bin-tool",
+          "description": "Varre binários e componentes instalados para identificar possíveis CVEs a partir de versões detectadas.",
+          "tags": [
+            "cve",
+            "binaries",
+            "host"
+          ],
+          "link": "https://cve-bin-tool.readthedocs.io/"
+        },
+        {
+          "kind": "XSS Scanner",
+          "name": "Dalfox",
+          "description": "Ferramenta de automação focada em descoberta e validação de XSS em aplicações e APIs web.",
+          "tags": [
+            "xss",
+            "web",
+            "dast"
+          ],
+          "link": "https://dalfox.hahwul.com/"
+        },
+        {
+          "kind": "Vulnerability Orchestration",
+          "name": "DefectDojo OSS",
+          "description": "Plataforma open source para ingestão, deduplicação, priorização e gestão de findings de dezenas de scanners.",
+          "tags": [
+            "gevul",
+            "vulnerability-management",
+            "triage"
+          ],
+          "link": "https://docs.defectdojo.com/"
+        },
+        {
+          "kind": "SCA Platform",
+          "name": "Dependency-Track",
+          "description": "Plataforma para ingestão de SBOM e gestão contínua de risco de componentes.",
+          "tags": [
+            "sca",
+            "sbom",
+            "platform"
+          ],
+          "link": "https://dependencytrack.org/"
+        },
+        {
+          "kind": "Content Discovery",
+          "name": "dirsearch",
+          "description": "Descoberta de caminhos e diretórios web.",
+          "tags": [
+            "web",
+            "discovery"
+          ],
+          "link": "https://github.com/maurosoria/dirsearch"
+        },
+        {
+          "kind": "Pentest & Findings Mgmt",
+          "name": "Faraday CE",
+          "description": "Plataforma colaborativa para consolidar resultados de testes, ativos, evidências e vulnerabilidades em fluxo operacional.",
+          "tags": [
+            "gevul",
+            "pentest",
+            "workflow"
+          ],
+          "link": "https://docs.faradaysec.com/"
+        },
+        {
+          "kind": "Content Discovery",
+          "name": "ffuf",
+          "description": "Fuzzing e descoberta de conteúdo web.",
+          "tags": [
+            "fuzzing",
+            "web"
+          ],
+          "link": "https://github.com/ffuf/ffuf"
+        },
+        {
+          "kind": "Secrets Scanning",
+          "name": "Gitleaks",
+          "description": "Detecção de segredos em repositórios e pipelines.",
+          "tags": [
+            "secrets",
+            "git"
+          ],
+          "link": "https://gitleaks.io/"
+        },
+        {
+          "kind": "Vulnerability Management",
+          "name": "Greenbone / OpenVAS",
+          "description": "Gestão de vulnerabilidades baseada em scanners e feed da Greenbone Community Edition.",
+          "tags": [
+            "vuln",
+            "scanner",
+            "vm"
+          ],
+          "link": "https://www.greenbone.net/en/community-edition/"
+        },
+        {
+          "kind": "Vulnerability Scanner",
+          "name": "Grype",
+          "description": "Scanner de vulnerabilidades para artefatos e imagens.",
+          "tags": [
+            "vuln",
+            "container"
+          ],
+          "link": "https://anchore.com/opensource/"
+        },
+        {
+          "kind": "HTTP Probing",
+          "name": "httpx",
+          "description": "Probing e fingerprinting HTTP em larga escala.",
+          "tags": [
+            "http",
+            "probe"
+          ],
+          "link": "https://projectdiscovery.io/open-source"
+        },
+        {
+          "kind": "Kubernetes Benchmark",
+          "name": "kube-bench",
+          "description": "Valida clusters Kubernetes contra benchmarks CIS e ajuda no hardening e auditoria contínua.",
+          "tags": [
+            "kubernetes",
+            "cis",
+            "compliance"
+          ],
+          "link": "https://github.com/aquasecurity/kube-bench"
+        },
+        {
+          "kind": "Kubernetes Hunting",
+          "name": "kube-hunter",
+          "description": "Procura vetores de exposição e fraquezas em clusters Kubernetes a partir de testes de segurança orientados a risco.",
+          "tags": [
+            "kubernetes",
+            "assessment",
+            "exposure"
+          ],
+          "link": "https://github.com/aquasecurity/kube-hunter"
+        },
+        {
+          "kind": "Kubernetes Risk Review",
+          "name": "kube-score",
+          "description": "Analisa manifests Kubernetes antes do deploy e aponta riscos de segurança e resiliência operacional.",
+          "tags": [
+            "kubernetes",
+            "review",
+            "devsecops"
+          ],
+          "link": "https://kube-score.com/"
+        },
+        {
+          "kind": "Kubernetes Audit",
+          "name": "kubeaudit",
+          "description": "Audita manifests e configurações Kubernetes para detectar permissões excessivas e práticas inseguras.",
+          "tags": [
+            "kubernetes",
+            "audit",
+            "misconfig"
+          ],
+          "link": "https://github.com/Shopify/kubeaudit"
+        },
+        {
+          "kind": "Kubernetes Security",
+          "name": "Kubescape",
+          "description": "Scanner open source para Kubernetes, workloads, RBAC, posture e risco de cloud-native environments.",
+          "tags": [
+            "kubernetes",
+            "cnapp",
+            "posture"
+          ],
+          "link": "https://kubescape.io/"
+        },
+        {
+          "kind": "Host Auditing",
+          "name": "Lynis",
+          "description": "Auditoria e hardening de sistemas Unix/Linux.",
+          "tags": [
+            "hardening",
+            "audit"
+          ],
+          "link": "https://cisofy.com/lynis/"
+        },
+        {
+          "kind": "Port Scanner",
+          "name": "Masscan",
+          "description": "Scanner massivo de portas para grandes ranges.",
+          "tags": [
+            "port",
+            "scanner"
+          ],
+          "link": "https://github.com/robertdavidgraham/masscan"
+        },
+        {
+          "kind": "Exploit Framework",
+          "name": "Metasploit Framework",
+          "description": "Framework open source para validação de segurança, exploit testing e pós-exploração em labs autorizados.",
+          "tags": [
+            "pentest",
+            "framework"
+          ],
+          "link": "https://www.metasploit.com/"
+        },
+        {
+          "kind": "Port Scanning",
+          "name": "Naabu",
+          "description": "Port scanner rápido para mapeamento externo.",
+          "tags": [
+            "port",
+            "scanner"
+          ],
+          "link": "https://projectdiscovery.io/open-source"
+        },
+        {
+          "kind": "Web Scanner",
+          "name": "Nikto",
+          "description": "Scanner web clássico para checagens rápidas.",
+          "tags": [
+            "web",
+            "scanner"
+          ],
+          "link": "https://github.com/sullo/nikto"
+        },
+        {
+          "kind": "Network Mapper",
+          "name": "Nmap",
+          "description": "Mapeamento de rede, portas, serviços e NSE.",
+          "tags": [
+            "network",
+            "mapping"
+          ],
+          "link": "https://nmap.org/"
+        },
+        {
+          "kind": "Template Scanner",
+          "name": "Nuclei",
+          "description": "Scanner baseado em templates para exposições, CVEs e misconfigurations.",
+          "tags": [
+            "scanner",
+            "templates",
+            "exposure"
+          ],
+          "link": "https://nuclei.projectdiscovery.io/"
+        },
+        {
+          "kind": "Compliance/Scanning",
+          "name": "OpenSCAP",
+          "description": "Framework de compliance e scanning baseado em SCAP/XCCDF/OVAL.",
+          "tags": [
+            "compliance",
+            "scap"
+          ],
+          "link": "https://www.open-scap.org/"
+        },
+        {
+          "kind": "SCA",
+          "name": "OSV-Scanner",
+          "description": "Scanner oficial do ecossistema OSV para identificar vulnerabilidades que afetam dependências e manifests de software.",
+          "tags": [
+            "sca",
+            "dependencies",
+            "supply-chain"
+          ],
+          "link": "https://google.github.io/osv-scanner/"
+        },
+        {
+          "kind": "SCA",
+          "name": "OWASP Dependency-Check",
+          "description": "Análise de dependências vulneráveis em aplicações.",
+          "tags": [
+            "sca",
+            "dependencies"
+          ],
+          "link": "https://owasp.org/www-project-dependency-check/"
+        },
+        {
+          "kind": "DAST",
+          "name": "OWASP ZAP",
+          "description": "Proxy e scanner DAST para aplicações web e APIs.",
+          "tags": [
+            "dast",
+            "web",
+            "api"
+          ],
+          "link": "https://www.zaproxy.org/"
+        },
+        {
+          "kind": "Kubernetes Policy",
+          "name": "Polaris",
+          "description": "Ferramenta de validação contínua para workloads Kubernetes com foco em configuração segura e hygiene operacional.",
+          "tags": [
+            "kubernetes",
+            "policy",
+            "posture"
+          ],
+          "link": "https://www.fairwinds.com/polaris"
+        },
+        {
+          "kind": "Cloud Security Posture",
+          "name": "Prowler",
+          "description": "Auditoria open source para AWS, Azure, GCP, Kubernetes e SaaS com foco em postura, compliance e exposição em nuvem.",
+          "tags": [
+            "cloud",
+            "cspm",
+            "gevul"
+          ],
+          "link": "https://prowler.com/"
+        },
+        {
+          "kind": "Port Scanner",
+          "name": "RustScan",
+          "description": "Scanner rápido de portas com integração a ferramentas complementares.",
+          "tags": [
+            "port",
+            "scanner"
+          ],
+          "link": "https://rustscan.github.io/RustScan/"
+        },
+        {
+          "kind": "Python Dependency Security",
+          "name": "Safety",
+          "description": "Checagem de vulnerabilidades em dependências Python.",
+          "tags": [
+            "python",
+            "deps",
+            "vuln"
+          ],
+          "link": "https://pyup.io/safety/"
+        },
+        {
+          "kind": "Cloud Security Auditing",
+          "name": "Scout Suite",
+          "description": "Ferramenta open source de auditoria multi-cloud para mapear postura e superfícies de risco via APIs nativas dos provedores.",
+          "tags": [
+            "cloud",
+            "asm",
+            "audit"
+          ],
+          "link": "https://github.com/nccgroup/ScoutSuite"
+        },
+        {
+          "kind": "SAST",
+          "name": "Semgrep CE",
+          "description": "Engine de análise estática e regras customizadas para código.",
+          "tags": [
+            "sast",
+            "code"
+          ],
+          "link": "https://semgrep.dev/"
+        },
+        {
+          "kind": "SQL Injection Testing",
+          "name": "sqlmap",
+          "description": "Ferramenta clássica para validação e exploração de SQL injection em ambientes autorizados.",
+          "tags": [
+            "sqli",
+            "testing"
+          ],
+          "link": "https://sqlmap.org/"
+        },
+        {
+          "kind": "TLS Analyzer",
+          "name": "SSLyze",
+          "description": "Analisador de configuração TLS/SSL para servidores.",
+          "tags": [
+            "tls",
+            "ssl"
+          ],
+          "link": "https://nabla-c0d3.github.io/sslyze/"
+        },
+        {
+          "kind": "Subdomain Discovery",
+          "name": "Subfinder",
+          "description": "Descoberta de subdomínios via múltiplas fontes.",
+          "tags": [
+            "asm",
+            "subdomains"
+          ],
+          "link": "https://projectdiscovery.io/open-source"
+        },
+        {
+          "kind": "SBOM",
+          "name": "Syft",
+          "description": "Geração de SBOM para pacotes, imagens e artefatos.",
+          "tags": [
+            "sbom"
+          ],
+          "link": "https://anchore.com/opensource/"
+        },
+        {
+          "kind": "IaC Security",
+          "name": "Terrascan",
+          "description": "Scanner de misconfiguração para IaC com políticas para Terraform, Kubernetes, Helm, Kustomize e cloud templates.",
+          "tags": [
+            "iac",
+            "misconfig",
+            "devsecops"
+          ],
+          "link": "https://runterrascan.io/"
+        },
+        {
+          "kind": "TLS Scanner",
+          "name": "testssl.sh",
+          "description": "Teste de configuração TLS/SSL e protocolos expostos.",
+          "tags": [
+            "tls",
+            "ssl"
+          ],
+          "link": "https://testssl.sh/"
+        },
+        {
+          "kind": "Vuln/SBOM/Config",
+          "name": "Trivy",
+          "description": "Scanner de imagens, arquivos, IaC, Kubernetes e SBOM.",
+          "tags": [
+            "container",
+            "sbom",
+            "vuln"
+          ],
+          "link": "https://trivy.dev/"
+        },
+        {
+          "kind": "Secrets Scanning",
+          "name": "TruffleHog",
+          "description": "Detecção de segredos expostos em Git e outros alvos.",
+          "tags": [
+            "secrets",
+            "git"
+          ],
+          "link": "https://trufflesecurity.com/trufflehog"
+        },
+        {
+          "kind": "Normalization Pipeline",
+          "name": "VulnWhisperer",
+          "description": "Normaliza saídas de scanners e facilita envio estruturado de resultados para outras plataformas de gestão e analytics.",
+          "tags": [
+            "gevul",
+            "normalization",
+            "pipelines"
+          ],
+          "link": "https://github.com/HASecuritySolutions/VulnWhisperer"
+        },
+        {
+          "kind": "Web Scanner",
+          "name": "Wapiti",
+          "description": "Scanner DAST open source para aplicações web, cobrindo múltiplas classes de falhas comuns e exposição de superfície.",
+          "tags": [
+            "dast",
+            "web",
+            "scanner"
+          ],
+          "link": "https://wapiti-scanner.github.io/"
+        }
+      ]
+    },
+    {
+      "name": "DFIR, Forense & Malware",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "Disk Forensics",
+          "name": "Autopsy",
+          "description": "Interface forense para análise de disco e artefatos.",
+          "tags": [
+            "disk",
+            "forensics"
+          ],
+          "link": "https://www.autopsy.com/"
+        },
+        {
+          "kind": "Capability Analysis",
+          "name": "CAPA",
+          "description": "Identificação de capacidades de malware a partir de arquivos e memória.",
+          "tags": [
+            "malware",
+            "reverse"
+          ],
+          "link": "https://mandiant.github.io/capa/"
+        },
+        {
+          "kind": "Malware Sandbox",
+          "name": "CAPEv2",
+          "description": "Sandbox open source derivada do Cuckoo para análise dinâmica.",
+          "tags": [
+            "sandbox",
+            "malware"
+          ],
+          "link": "https://github.com/kevoreilly/CAPEv2"
+        },
+        {
+          "kind": "Windows Event Hunting",
+          "name": "Chainsaw",
+          "description": "Hunting rápido sobre logs e artefatos Windows/EVTX.",
+          "tags": [
+            "windows",
+            "evtx",
+            "hunting"
+          ],
+          "link": "https://github.com/WithSecureLabs/chainsaw"
+        },
+        {
+          "kind": "Data Operations",
+          "name": "CyberChef",
+          "description": "Canivete suíço para transformação, decode e triagem de artefatos.",
+          "tags": [
+            "decode",
+            "triage"
+          ],
+          "link": "https://gchq.github.io/CyberChef/"
+        },
+        {
+          "kind": "String Deobfuscation",
+          "name": "FLOSS",
+          "description": "Extração de strings e deobfuscação para malware analysis.",
+          "tags": [
+            "malware",
+            "reverse"
+          ],
+          "link": "https://github.com/mandiant/flare-floss"
+        },
+        {
+          "kind": "Windows Event Timeline",
+          "name": "Hayabusa",
+          "description": "Análise e timeline de eventos Windows em alta velocidade.",
+          "tags": [
+            "windows",
+            "evtx",
+            "timeline"
+          ],
+          "link": "https://github.com/Yamato-Security/hayabusa"
+        },
+        {
+          "kind": "Timeline Forensics",
+          "name": "Plaso",
+          "description": "Super timeline forense a partir de múltiplas fontes de evidência.",
+          "tags": [
+            "timeline",
+            "forensics"
+          ],
+          "link": "https://plaso.readthedocs.io/"
+        },
+        {
+          "kind": "DFIR/Malware distro",
+          "name": "REMnux",
+          "description": "Distribuição focada em malware analysis e reverse engineering.",
+          "tags": [
+            "malware",
+            "distro"
+          ],
+          "link": "https://remnux.org/"
+        },
+        {
+          "kind": "Disk Forensics",
+          "name": "The Sleuth Kit",
+          "description": "Base forense para análise de sistemas de arquivos e imagens.",
+          "tags": [
+            "disk",
+            "forensics"
+          ],
+          "link": "https://www.sleuthkit.org/"
+        },
+        {
+          "kind": "Timeline Analysis",
+          "name": "Timesketch",
+          "description": "Análise colaborativa de timelines para DFIR.",
+          "tags": [
+            "timeline",
+            "analysis"
+          ],
+          "link": "https://timesketch.org/"
+        },
+        {
+          "kind": "DFIR/Endpoint IR",
+          "name": "Velociraptor",
+          "description": "DFIR e threat hunting em endpoints com coleta e resposta.",
+          "tags": [
+            "dfir",
+            "ir",
+            "endpoint"
+          ],
+          "link": "https://docs.velociraptor.app/"
+        },
+        {
+          "kind": "Memory Forensics",
+          "name": "Volatility 3",
+          "description": "Análise forense de memória para Windows, Linux e macOS.",
+          "tags": [
+            "memory",
+            "forensics"
+          ],
+          "link": "https://volatilityfoundation.org/"
+        },
+        {
+          "kind": "YARA engine",
+          "name": "YARA-X",
+          "description": "Nova engine de matching inspirada em YARA.",
+          "tags": [
+            "yara",
+            "malware"
+          ],
+          "link": "https://virustotal.github.io/yara-x/"
+        }
+      ]
+    },
+    {
+      "name": "Honeypots & Deception",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "ADB Honeypot",
+          "name": "ADBHoney",
+          "description": "Honeypot para Android Debug Bridge exposto.",
+          "tags": [
+            "honeypot",
+            "adb"
+          ],
+          "link": "https://github.com/huuck/ADBHoney"
+        },
+        {
+          "kind": "ICS/OT Honeypot",
+          "name": "Conpot",
+          "description": "Honeypot para protocolos e ambientes ICS/SCADA.",
+          "tags": [
+            "honeypot",
+            "ics",
+            "ot"
+          ],
+          "link": "https://conpot.org/"
+        },
+        {
+          "kind": "SSH/Telnet Honeypot",
+          "name": "Cowrie",
+          "description": "Honeypot de alta interação para SSH e Telnet.",
+          "tags": [
+            "honeypot",
+            "ssh",
+            "telnet"
+          ],
+          "link": "https://cowrie.org/"
+        },
+        {
+          "kind": "Medical Honeypot",
+          "name": "DICOMHawk",
+          "description": "Honeypot para ambiente DICOM/saúde apresentado no escopo do Honeynet Project.",
+          "tags": [
+            "honeypot",
+            "medical"
+          ],
+          "link": "https://www.honeynet.org/gsoc/gsoc-2026/google-summer-of-code-2026-project-ideas/"
+        },
+        {
+          "kind": "Malware Honeypot",
+          "name": "Dionaea",
+          "description": "Honeypot para captura de malware e interação com múltiplos serviços.",
+          "tags": [
+            "honeypot",
+            "malware"
+          ],
+          "link": "https://github.com/DinoTools/dionaea"
+        },
+        {
+          "kind": "Credential Honeypot",
+          "name": "Heralding",
+          "description": "Honeypot multi-serviço focado em coleta de credenciais e interações.",
+          "tags": [
+            "honeypot",
+            "auth"
+          ],
+          "link": "https://github.com/johnnykv/heralding"
+        },
+        {
+          "kind": "Deception Sensor",
+          "name": "Honeytrap",
+          "description": "Sensor para engano e emulação de serviços.",
+          "tags": [
+            "honeypot",
+            "deception"
+          ],
+          "link": "https://github.com/honeytrap/honeytrap"
+        },
+        {
+          "kind": "SMTP Honeypot",
+          "name": "Mailoney",
+          "description": "Honeypot SMTP para coleta de interações maliciosas.",
+          "tags": [
+            "honeypot",
+            "smtp"
+          ],
+          "link": "https://github.com/awhitehatter/mailoney"
+        },
+        {
+          "kind": "Service Honeypot",
+          "name": "OpenCanary",
+          "description": "Honeypot simples para detecção de scans e toques em serviços falsos.",
+          "tags": [
+            "honeypot",
+            "canary"
+          ],
+          "link": "https://opencanary.org/en/latest/"
+        },
+        {
+          "kind": "Honeypot Platform",
+          "name": "T-Pot CE",
+          "description": "Plataforma que agrega múltiplos honeypots e dashboards.",
+          "tags": [
+            "honeypot",
+            "platform"
+          ],
+          "link": "https://github.com/telekom-security/tpotce"
+        }
+      ]
+    },
+    {
+      "name": "Coleta, Pipeline & Observabilidade",
+      "description": "Curadoria prática com foco em montagem real de ambiente, laboratório, SOC, AppSec e DFIR.",
+      "tools": [
+        {
+          "kind": "Log Pipeline",
+          "name": "Fluent Bit",
+          "description": "Coleta e roteamento leve de logs e métricas.",
+          "tags": [
+            "logs",
+            "pipeline"
+          ],
+          "link": "https://fluentbit.io/"
+        },
+        {
+          "kind": "Log Pipeline",
+          "name": "Fluentd",
+          "description": "Coleta, transformação e envio de logs.",
+          "tags": [
+            "logs",
+            "pipeline"
+          ],
+          "link": "https://www.fluentd.org/"
+        },
+        {
+          "kind": "Visualization",
+          "name": "Grafana",
+          "description": "Visualização de métricas e observabilidade útil para segurança operacional.",
+          "tags": [
+            "dashboards",
+            "observability"
+          ],
+          "link": "https://grafana.com/oss/grafana/"
+        },
+        {
+          "kind": "Ingestion",
+          "name": "Logstash OSS",
+          "description": "Pipeline de ingestão amplamente usado, apesar do stack Elastic ter mudado de licenciamento em partes.",
+          "tags": [
+            "logs",
+            "ingestion"
+          ],
+          "link": "https://www.elastic.co/logstash"
+        },
+        {
+          "kind": "Log Aggregation",
+          "name": "Loki",
+          "description": "Agregação de logs indexados por labels.",
+          "tags": [
+            "logs"
+          ],
+          "link": "https://grafana.com/oss/loki/"
+        },
+        {
+          "kind": "Telemetry Standard",
+          "name": "OpenTelemetry",
+          "description": "Padrão e stack para coleta de traces, métricas e logs.",
+          "tags": [
+            "telemetry",
+            "traces",
+            "metrics"
+          ],
+          "link": "https://opentelemetry.io/"
+        },
+        {
+          "kind": "Metrics",
+          "name": "Prometheus",
+          "description": "Coleta de métricas para operação e segurança de infraestrutura.",
+          "tags": [
+            "metrics"
+          ],
+          "link": "https://prometheus.io/"
+        },
+        {
+          "kind": "Observability Pipeline",
+          "name": "Vector",
+          "description": "Pipeline de logs/métricas com alta performance.",
+          "tags": [
+            "observability",
+            "logs"
+          ],
+          "link": "https://vector.dev/"
+        }
+      ]
+    },
+    {
+      "name": "Privacidade, Colaboração Segura & IA Local",
+      "description": "Camada complementar do ecossistema: criptografia de volumes, cofre de senhas, mensageria segura, compartilhamento privado, suíte colaborativa criptografada, estudo offline e execução local de modelos. Itens que não forem estritamente open source ficam marcados no texto da descrição.",
+      "tools": [
+        {
+          "kind": "Criptografia de disco/volume",
+          "name": "VeraCrypt",
+          "description": "Criptografia open source de volume, partição e disco, útil para proteção de dados em repouso em endpoints e estações administrativas.",
+          "tags": [
+            "disk-encryption",
+            "volume-encryption",
+            "data-at-rest",
+            "privacy"
+          ],
+          "link": "https://veracrypt.io/"
+        },
+        {
+          "kind": "Cofre de senhas",
+          "name": "KeePass",
+          "description": "Password safe open source para armazenamento local de credenciais em base criptografada; útil para cofres offline e uso individual ou operacional controlado.",
+          "tags": [
+            "password-vault",
+            "credentials",
+            "offline",
+            "secrets"
+          ],
+          "link": "https://keepass.info/"
+        },
+        {
+          "kind": "Mensageria segura",
+          "name": "Signal",
+          "description": "Mensageria segura amplamente adotada; clientes e componentes centrais possuem código público. Útil para comunicação protegida entre equipes e resposta a incidentes.",
+          "tags": [
+            "secure-chat",
+            "e2ee",
+            "messaging",
+            "mobile"
+          ],
+          "link": "https://signal.org/"
+        },
+        {
+          "kind": "Mensageria P2P",
+          "name": "Tox",
+          "description": "Projeto open source de comunicação P2P com foco em mensagens, voz e vídeo; bom para estudo e cenários comunitários, com maturidade prática inferior às opções mais populares.",
+          "tags": [
+            "p2p",
+            "messaging",
+            "voice",
+            "video"
+          ],
+          "link": "https://tox.chat/"
+        },
+        {
+          "kind": "Mensageria segura",
+          "name": "SimpleX Chat",
+          "description": "Mensageria open source com foco forte em privacidade e ausência de identificadores globais de usuário.",
+          "tags": [
+            "secure-chat",
+            "privacy",
+            "e2ee",
+            "metadata"
+          ],
+          "link": "https://simplex.chat/"
+        },
+        {
+          "kind": "XMPP client",
+          "name": "Gajim",
+          "description": "Cliente XMPP open source robusto para chat federado; útil quando a estratégia pede protocolo aberto, federação e operação própria.",
+          "tags": [
+            "xmpp",
+            "federation",
+            "chat",
+            "open-protocol"
+          ],
+          "link": "https://gajim.org/"
+        },
+        {
+          "kind": "Mensageria privada",
+          "name": "Session",
+          "description": "Mensageria descentralizada com roteamento em camadas e foco em redução de metadados; opção útil para cenários de privacidade reforçada.",
+          "tags": [
+            "private-messenger",
+            "onion-routing",
+            "metadata-protection",
+            "e2ee"
+          ],
+          "link": "https://getsession.org/"
+        },
+        {
+          "kind": "Compartilhamento seguro",
+          "name": "OnionShare",
+          "description": "Ferramenta open source para compartilhamento seguro e anônimo de arquivos, publicação simples e chat via rede Tor.",
+          "tags": [
+            "file-sharing",
+            "tor",
+            "anonymous",
+            "secure-transfer"
+          ],
+          "link": "https://onionshare.org/"
+        },
+        {
+          "kind": "Pesquisa offline",
+          "name": "Kiwix",
+          "description": "Acesso offline a bases de conhecimento e documentação; útil para laboratório, ensino, resposta a incidentes e ambientes com conectividade limitada.",
+          "tags": [
+            "offline-knowledge",
+            "documentation",
+            "training",
+            "research"
+          ],
+          "link": "https://kiwix.org/en/"
+        },
+        {
+          "kind": "Office criptografado",
+          "name": "CryptPad",
+          "description": "Suíte colaborativa open source com criptografia ponta a ponta; útil para documentos, formulários, planilhas e colaboração com foco em privacidade.",
+          "tags": [
+            "office-suite",
+            "e2ee",
+            "collaboration",
+            "documents"
+          ],
+          "link": "https://cryptpad.org/"
+        },
+        {
+          "kind": "Host de IA local",
+          "name": "Ollama",
+          "description": "Camada prática para servir e operar modelos localmente; útil como host de IA local para automação, copilotos internos e laboratório privado.",
+          "tags": [
+            "local-ai",
+            "llm-host",
+            "self-hosted",
+            "models"
+          ],
+          "link": "https://ollama.com/"
+        },
+        {
+          "kind": "Desktop de IA local",
+          "name": "LM Studio",
+          "description": "Ferramenta popular para rodar modelos localmente com interface amigável. Observação: é útil no ecossistema, mas não é apresentada aqui como ferramenta open source confirmada; entra como item adjacente explicitamente sinalizado.",
+          "tags": [
+            "local-ai",
+            "desktop",
+            "adjacente",
+            "private-ai"
+          ],
+          "link": "https://lmstudio.ai/"
+        },
+        {
+          "kind": "Modelos para IA local",
+          "name": "DeepSeek",
+          "description": "Família de modelos amplamente usada em cenários locais. No ecossistema, o uso recomendado é via host local como Ollama/LM Studio, adotando apenas variantes abertas ou open-weight quando aplicável.",
+          "tags": [
+            "models",
+            "local-ai",
+            "reasoning",
+            "open-weight"
+          ],
+          "link": "https://www.deepseek.com/en/"
+        },
+        {
+          "kind": "VPN / acesso remoto",
+          "name": "vpdotnet",
+          "description": "Projeto open source para servidor/acesso VPN self-hosted, incluído como alternativa no ecossistema de acesso seguro e conectividade criptografada.",
+          "tags": [
+            "vpn",
+            "remote-access",
+            "self-hosted",
+            "open-source"
+          ],
+          "link": "https://github.com/vpdotnet"
+        }
+      ]
+    },
+    {
+      "name": "GRC",
+      "description": "Ferramentas open source e adaptáveis para governança, risco e conformidade, incluindo gestão de risco e plataformas customizáveis para processos, controles e evidências.",
+      "tools": [
+        {
+          "kind": "GRC",
+          "name": "Eramba",
+          "description": "Plataforma open source de GRC para políticas, controles, riscos, auditorias, evidências e acompanhamento de conformidade.",
+          "tags": [
+            "grc",
+            "risk",
+            "compliance",
+            "audit",
+            "controls"
+          ],
+          "link": "https://www.eramba.org/"
+        },
+        {
+          "kind": "GRC",
+          "name": "CISO Assistant",
+          "description": "Projeto voltado a governança e gestão de segurança com foco em frameworks, compliance, postura organizacional e acompanhamento executivo.",
+          "tags": [
+            "grc",
+            "security-governance",
+            "compliance",
+            "frameworks"
+          ],
+          "link": "https://intuitem.com/ciso-assistant/"
+        },
+        {
+          "kind": "GRC",
+          "name": "OpenGRC",
+          "description": "Abordagem aberta para estruturar processos, documentação e governança de risco e conformidade em iniciativas de GRC.",
+          "tags": [
+            "grc",
+            "governance",
+            "risk",
+            "compliance"
+          ],
+          "link": "https://www.opengrc.com/"
+        },
+        {
+          "kind": "GRC",
+          "name": "verinice",
+          "description": "Ferramenta voltada a ISMS, análise de risco e conformidade, bastante associada a estruturas como ISO 27001 e gestão documental de segurança.",
+          "tags": [
+            "isms",
+            "iso27001",
+            "risk",
+            "compliance",
+            "grc"
+          ],
+          "link": "https://verinice.com/en/"
+        },
+        {
+          "kind": "Risk Management",
+          "name": "SimpleRisk",
+          "description": "Plataforma focada em gestão de riscos com registro, tratamento, avaliação, workflow e acompanhamento de planos de ação.",
+          "tags": [
+            "risk-management",
+            "workflow",
+            "register",
+            "treatment"
+          ],
+          "link": "https://www.simplerisk.com/"
+        },
+        {
+          "kind": "No-code / custom",
+          "name": "Baserow",
+          "description": "Base no-code open source útil para criar workflows customizados de GRC, registros de controles, inventários, evidências e acompanhamento operacional.",
+          "tags": [
+            "no-code",
+            "custom",
+            "workflow",
+            "grc",
+            "evidence"
+          ],
+          "link": "https://baserow.io/"
+        }
+      ]
+    }
+  ]
+}
+
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const toolsContainer = document.getElementById('toolsContainer');
+    const quickNav = document.getElementById('quickNav');
+
+    function buildQuickNav(categories) {
+      categories.forEach(cat => {
+        const a = document.createElement('a');
+        a.href = `#cat-${slugify(cat.name)}`;
+        a.className = 'chip rounded-full px-3 py-1.5 text-xs uppercase tracking-[0.14em] text-slate-300 hover:text-cyan-300';
+        a.textContent = `${cat.name} (${cat.tools.length})`;
+        quickNav.appendChild(a);
+      });
+    }
+
+    function slugify(v) {
+      return v.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+    }
+
+    function renderCategories() {
+      toolsContainer.innerHTML = '';
+      quickNav.innerHTML = '';
+      const search = searchInput.value.toLowerCase().trim();
+      const selected = categoryFilter.value;
+      const filteredCategories = [];
+
+      data.categories.forEach(cat => {
+        const matchedTools = cat.tools.filter(tool => {
+          const hay = `${tool.name} ${tool.kind} ${tool.description} ${(tool.tags || []).join(' ')}`.toLowerCase();
+          const matchesSearch = !search || hay.includes(search);
+          const matchesCat = selected === 'all' || cat.name === selected;
+          return matchesSearch && matchesCat;
+        });
+
+        if (matchedTools.length) {
+          filteredCategories.push({ ...cat, tools: matchedTools });
+        }
+      });
+
+      buildQuickNav(filteredCategories);
+
+      filteredCategories.forEach((cat, idx) => {
+        const section = document.createElement('section');
+        section.id = `cat-${slugify(cat.name)}`;
+        section.className = 'section-anchor';
+        section.innerHTML = `
+          <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-5">
+            <div>
+              <div class="font-display text-sm tracking-[0.26em] ${idx % 3 === 0 ? 'text-cyan-300' : idx % 3 === 1 ? 'text-emerald-300' : 'text-violet-300'} mb-2">${cat.name.toUpperCase()}</div>
+              <h3 class="text-2xl md:text-3xl font-bold mb-2">${cat.name}</h3>
+              <p class="text-slate-400 max-w-3xl">${cat.description}</p>
+            </div>
+            <div class="soft-panel rounded-2xl px-4 py-3 text-sm text-slate-300">
+              <span class="metric-value text-cyan-300">${cat.tools.length}</span> ferramentas visíveis
+            </div>
+          </div>
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+            ${cat.tools.map(tool => `
+              <article class="tool-card soft-panel rounded-[26px] p-5 border border-white/10 flex flex-col h-full">
+                <div class="flex items-start justify-between gap-3 mb-4">
+                  <span class="inline-flex rounded-full bg-cyan-400/10 border border-cyan-400/20 px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-cyan-300">${tool.kind}</span>
+                </div>
+                <h4 class="text-2xl font-bold mb-3 leading-tight">${tool.name}</h4>
+                <p class="text-slate-300 leading-relaxed mb-4 flex-grow">${tool.description}</p>
+                <div class="flex flex-wrap gap-2 mb-5">${(tool.tags || []).map(tag => `<span class="chip rounded-full px-2.5 py-1 text-[11px] text-slate-300">#${tag}</span>`).join('')}</div>
+                <a href="${tool.link}" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center justify-between gap-3 rounded-2xl panel px-4 py-3 text-sm font-bold text-cyan-300 hover:text-white">
+                  <span>Acessar link oficial</span>
+                  <span class="font-mono-ui">→</span>
+                </a>
+              </article>
+            `).join('')}
+          </div>
+        `;
+        toolsContainer.appendChild(section);
+      });
+    }
+
+    function init() {
+      data.categories.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat.name;
+        option.textContent = cat.name;
+        categoryFilter.appendChild(option);
+      });
+      renderCategories();
+      searchInput.addEventListener('input', renderCategories);
+      categoryFilter.addEventListener('change', renderCategories);
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
